@@ -64,4 +64,3 @@ spec:
           mountPath: /data
       volumes:
           - name: storage
-

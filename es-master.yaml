@@ -46,6 +46,8 @@ spec:
           value: "false"
         - name: HTTP_ENABLE
           value: "false"
+        - name: NETWORK_HOST
+          value: _eth0:ipv4_
         - name: ES_JAVA_OPTS
           value: -Xms1024m -Xmx1024m
         - name: PROCESSORS
@@ -54,13 +56,14 @@ spec:
               resource: limits.cpu
         resources:
           limits:
-            cpu: 1
+            cpu: 0.5
         ports:
         - containerPort: 9300
           name: transport
         livenessProbe:
           tcpSocket:
             port: transport
+          initialDelaySeconds: 40
         volumeMounts:
         - name: storage
           mountPath: /data

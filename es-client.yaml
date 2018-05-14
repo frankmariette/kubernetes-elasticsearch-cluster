@@ -45,14 +45,14 @@ spec:
         - name: ES_JAVA_OPTS
           value: -Xms1024m -Xmx1024m
         - name: NETWORK_HOST
-          value: _site_,_lo_
+          value: _lo_
         - name: PROCESSORS
           valueFrom:
             resourceFieldRef:
               resource: limits.cpu
         resources:
           limits:
-            cpu: 1
+            cpu: 0.5
         ports:
         - containerPort: 9200
           name: http
@@ -61,11 +61,12 @@ spec:
         livenessProbe:
           tcpSocket:
             port: transport
+          initialDelaySeconds: 60
         readinessProbe:
           httpGet:
             path: /_cluster/health
             port: http
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
           timeoutSeconds: 5
         volumeMounts:
         - name: storage
